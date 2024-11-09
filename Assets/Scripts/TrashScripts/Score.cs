@@ -18,6 +18,11 @@ public class Score : MonoBehaviour
             Destroy(other.gameObject);
             AllScore += 3;
         }
+        if (other.gameObject.tag == "Trash2")
+        {
+            Destroy(other.gameObject);
+            AllScore += 5;
+        }
     }
 
     // Update is called once per frame
