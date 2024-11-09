@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyTrash : MonoBehaviour
+public class FlyTrash : Trash
 {
     new private Rigidbody2D rigidbody;
     // Start is called before the first frame update

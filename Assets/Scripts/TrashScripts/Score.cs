@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    private int AllScore;
+    public int AllScore;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +13,13 @@ public class Score : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Trash1")
+        Debug.Log(other.gameObject.name);
+        if (other.GetComponent<LayerTrash>())
         {
             Destroy(other.gameObject);
             AllScore += 3;
         }
-        if (other.gameObject.tag == "Trash2")
+        if (other.GetComponent<FlyTrash>())
         {
             Destroy(other.gameObject);
             AllScore += 5;
