@@ -19,6 +19,7 @@ public class Score : MonoBehaviour
             Destroy(other.gameObject);
             AllScore += 3;
         }
+
         if (other.GetComponent<FlyTrash>())
         {
             Destroy(other.gameObject);
