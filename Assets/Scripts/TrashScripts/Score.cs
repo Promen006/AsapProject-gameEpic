@@ -25,6 +25,11 @@ public class Score : MonoBehaviour
             Destroy(other.gameObject);
             AllScore += 5;
         }
+        if (other.GetComponent<BouncingObject>())
+        {
+            Destroy(other.gameObject);
+            AllScore += 8;
+        }
     }
 
     // Update is called once per frame

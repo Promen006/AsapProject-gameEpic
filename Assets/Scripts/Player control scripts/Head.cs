@@ -4,22 +4,30 @@ using UnityEngine;
 public class Head : MonoBehaviour
 {
     public Sprite blinkSprite;
+    public SpriteRenderer HairSprite;
+    public SpriteRenderer BodySprite;
 
-    void Start() { StartCoroutine(Blink()); }
+    void Start() 
+    { 
+        StartCoroutine(Blink());
+    }
 
     void Update()
     {
         Vector3 mouseDir =
             new Vector3(Input.mousePosition.x / Screen.width * 2.0f - 1.0f,
                         Input.mousePosition.y / Screen.height * 2.0f - 1.0f);
-        bool flipped = mouseDir.x < 0;
+        bool flipped = mouseDir.x > 0;
 
         float degrees =
             Mathf.Rad2Deg * Mathf.Atan2(mouseDir.y, Mathf.Abs(mouseDir.x));
-        degrees = Mathf.Clamp(degrees, -30, 30);
-        transform.eulerAngles = new Vector3(0, 0, degrees * (flipped ? -1 : 1));
+        degrees = Mathf.Clamp(degrees, -10, 30);
+        transform.eulerAngles = new Vector3(0, 0, degrees * (flipped ? 1 : -1));
 
         GetComponent<SpriteRenderer>().flipX = flipped;
+        HairSprite.flipX = flipped;
+        BodySprite.flipX = flipped;
+
     }
 
     IEnumerator Blink()

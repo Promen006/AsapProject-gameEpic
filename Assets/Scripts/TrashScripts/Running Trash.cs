@@ -16,13 +16,16 @@ public class BouncingObject : Trash
     void FixedUpdate()
     {
         rigbody.velocity = new Vector2(direction * speed ,rigbody.velocity.y);
-
+        bool flipped = rigbody.velocity.x < 0;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right*direction, 1.0f, NeCritis);
         Debug.DrawRay(transform.position, transform.right * 1f *direction);
         if (hit.collider != null)
         {
             direction = -direction;
+            GetComponent<SpriteRenderer>().flipX = flipped;
 
         }
     }
 }
+// Кинуть raycost и проверить находится ли на нужном растоянии обьект Если нет но идти туда,если да то п####
+
