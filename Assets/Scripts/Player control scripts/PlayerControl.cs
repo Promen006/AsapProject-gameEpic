@@ -3,6 +3,7 @@
 public class PlayerControl : MonoBehaviour {
     public Transform hammerHead;
     public Transform body;
+    public LayerMask layerMask;
 
     public float maxRange = 2.0f;
 
@@ -34,7 +35,7 @@ public class PlayerControl : MonoBehaviour {
         // Check if hammer head is collided with scene objects
         ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.useLayerMask = true;
-        contactFilter.layerMask = LayerMask.GetMask("Default");
+        contactFilter.layerMask = layerMask;
         Collider2D[] results = new Collider2D[5];
         if (hammerHead.GetComponent<Rigidbody2D>().OverlapCollider(
                 contactFilter, results) > 0)  // If collided with scene objects
