@@ -249,6 +249,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  dead: {fileID: 21300000, guid: ac5434bc9c28d6646880e03b9d429f96, type: 3}
 --- !u!50 &7886069206495747629
 Rigidbody2D:
   serializedVersion: 4

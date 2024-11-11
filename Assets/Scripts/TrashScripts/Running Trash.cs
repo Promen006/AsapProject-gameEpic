@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,17 +13,20 @@ public class BouncingObject : Trash
     Collider2D[] coll = new Collider2D[10];
     public Collider2D collider;
     public ContactFilter2D contactFilter;
-    private bool isDead = false; // Флаг, чтобы отслеживать, мертв ли объект
+    private bool isDead = false; // Р¤Р»Р°Рі, С‡С‚РѕР±С‹ РѕС‚СЃР»РµР¶РёРІР°С‚СЊ, РјРµСЂС‚РІ Р»Рё РѕР±СЉРµРєС‚
+    public Sprite dead;
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         rigbody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Flip()
     {
-        // Инвертируем флаг и поворачиваем объект на 180 градусов по оси Y
-        if (!isDead) // Проверяем, не мертв ли объект
+        // РРЅРІРµСЂС‚РёСЂСѓРµРј С„Р»Р°Рі Рё РїРѕРІРѕСЂР°С‡РёРІР°РµРј РѕР±СЉРµРєС‚ РЅР° 180 РіСЂР°РґСѓСЃРѕРІ РїРѕ РѕСЃРё Y
+        if (!isDead) // РџСЂРѕРІРµСЂСЏРµРј, РЅРµ РјРµСЂС‚РІ Р»Рё РѕР±СЉРµРєС‚
         {
             isFlipped = !isFlipped;
             transform.localScale = new Vector3(isFlipped ? -1 : 1, 1, 1) * Mathf.Abs(transform.localScale.x);
@@ -33,7 +36,7 @@ public class BouncingObject : Trash
 
     private void FixedUpdate()
     {
-        if (!isDead) // Проверяем, не мертв ли объект
+        if (!isDead) // РџСЂРѕРІРµСЂСЏРµРј, РЅРµ РјРµСЂС‚РІ Р»Рё РѕР±СЉРµРєС‚
         {
             var jojo = Physics2D.OverlapCollider(collider, contactFilter, coll);
             rigbody.velocity = new Vector2(direction * speed, rigbody.velocity.y);
@@ -55,9 +58,9 @@ public class BouncingObject : Trash
         if (collision.gameObject.GetComponent<metla>())
         {
             rigbody.gravityScale = 2;
-            speed = 0; // Останавливаем движение, но не удаляем физику
-            //spriteRenderer.sprite = dead; // Используем spriteRenderer для изменения спрайта
-            isDead = true; // Устанавливаем флаг смерти
+            speed = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            spriteRenderer.sprite = dead; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ spriteRenderer пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            rigbody.mass = 0.5f;
         }
     }
 }
