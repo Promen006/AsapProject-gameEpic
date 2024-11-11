@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class SpawnRandomObject : MonoBehaviour
 {
-    public GameObject[] objectsToSpawn; // Массив с префабами объектов для спавна
+    public GameObject[] objectsToSpawn; // РњР°СЃСЃРёРІ СЃ РїСЂРµС„Р°Р±Р°РјРё РѕР±СЉРµРєС‚РѕРІ РґР»СЏ СЃРїР°РІРЅР°
 
-    public float spawnInterval = 2f; // Интервал между спавнами
-    public int maxLayerTrashCount = 10; // Максимальное количество объектов типа "LayerTrash"
-    public int maxFlyTrashCount = 15; // Максимальное количество объектов типа "FlyTrash"
-    public int maxRunTrashCount = 8; // Максимальное количество объектов типа "RunTrash"
+    public float spawnInterval = 2f; // РРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ СЃРїР°РІРЅР°РјРё
+    public int maxLayerTrashCount = 10; // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ С‚РёРїР° "LayerTrash"
+    public int maxFlyTrashCount = 15; // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ С‚РёРїР° "FlyTrash"
+    public int maxRunTrashCount = 8; // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ С‚РёРїР° "RunTrash"
 
-    public GameObject layerTrash; // Префаб объекта "LayerTrash"
-    public GameObject flyTrash; // Префаб объекта "FlyTrash"
-    public GameObject runTrash; // Префаб объекта "RunTrash"
+    public GameObject layerTrash; // РџСЂРµС„Р°Р± РѕР±СЉРµРєС‚Р° "LayerTrash"
+    public GameObject flyTrash; // РџСЂРµС„Р°Р± РѕР±СЉРµРєС‚Р° "FlyTrash"
+    public GameObject runTrash; // РџСЂРµС„Р°Р± РѕР±СЉРµРєС‚Р° "RunTrash"
 
     private float lastSpawnTime;
 
@@ -22,7 +22,7 @@ public class SpawnRandomObject : MonoBehaviour
             int randomIndex = Random.Range(0, objectsToSpawn.Length);
             GameObject objectToSpawn = objectsToSpawn[randomIndex];
 
-            // Проверяем только лимиты для каждого типа
+            // РџСЂРѕРІРµСЂСЏРµРј С‚РѕР»СЊРєРѕ Р»РёРјРёС‚С‹ РґР»СЏ РєР°Р¶РґРѕРіРѕ С‚РёРїР°
             if (objectToSpawn == layerTrash && GetObjectCount(layerTrash) >= maxLayerTrashCount)
             {
                 return;
@@ -44,15 +44,15 @@ public class SpawnRandomObject : MonoBehaviour
 
     private int GetObjectCount(GameObject prefab)
     {
-        // Используем GameObject.FindObjectsOfType для поиска всех объектов на сцене
+        // РСЃРїРѕР»СЊР·СѓРµРј GameObject.FindObjectsOfType РґР»СЏ РїРѕРёСЃРєР° РІСЃРµС… РѕР±СЉРµРєС‚РѕРІ РЅР° СЃС†РµРЅРµ
         GameObject[] foundObjects = GameObject.FindObjectsOfType<GameObject>();
 
         int count = 0;
 
-        // Перебираем найденные объекты
+        // РџРµСЂРµР±РёСЂР°РµРј РЅР°Р№РґРµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹
         foreach (GameObject obj in foundObjects)
         {
-            // Проверяем, является ли объект экземпляром переданного префаба
+            // РџСЂРѕРІРµСЂСЏРµРј, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РѕР±СЉРµРєС‚ СЌРєР·РµРјРїР»СЏСЂРѕРј РїРµСЂРµРґР°РЅРЅРѕРіРѕ РїСЂРµС„Р°Р±Р°
             if (obj.name == prefab.name)
             {
                 count++;

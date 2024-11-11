@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class FlyTrash : Trash
 {
-    public float moveRadius; // Радиус, в пределах которого враг будет искать точки
-    public float checkDistance; // Минимальное расстояние от цели для смены точки
-    public LayerMask obstacleLayer; // Слой препятствий для проверки столкновений
-    public float movementSpeed; // Скорость перемещения врага
+    public float moveRadius; // пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public float checkDistance; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public LayerMask obstacleLayer; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float movementSpeed; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     public Sprite dead;
 
     private Vector3 targetPoint;
@@ -34,14 +34,16 @@ public class FlyTrash : Trash
 
         while (!pointFound)
         {
-            // Случайная точка в пределах радиуса (теперь в 3D)
-            Vector3 randomDirection = Random.insideUnitCircle * moveRadius; // Используем Random.insideUnitCircle для 2D-плоскости
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 3D)
+            Vector3 randomDirection = Random.insideUnitCircle * moveRadius; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Random.insideUnitCircle пїЅпїЅпїЅ 2D-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             randomDirection += transform.position;
-            randomDirection.z = transform.position.z; // Устанавливаем Z-координату целевой точки равной Z-координате объекта
+            randomDirection.z = transform.position.z; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Z-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Z-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Проверка на препятствия
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (!Physics.Raycast(transform.position, randomDirection - transform.position, moveRadius, obstacleLayer))
             {
+                Debug.DrawRay(transform.position,randomDirection - transform.position * moveRadius);
+
                 targetPoint = randomDirection;
                 pointFound = true;
             }
@@ -50,17 +52,17 @@ public class FlyTrash : Trash
 
     private void MoveTowardsTarget()
     {
-        // Перемещение врага к целевой точке
-        if (movementSpeed > 0) // Проверяем, можем ли мы двигаться
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        if (movementSpeed > 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             Vector3 direction = (targetPoint - transform.position).normalized;
-            direction.z = 0; // Обнуляем Z-компонент вектора направления
-            rigidbody.velocity = direction * movementSpeed; // Используем rigidbody.velocity для плавного движения
+            direction.z = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Z-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            rigidbody.velocity = direction * movementSpeed; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ rigidbody.velocity пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Проверка на достижение цели
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             if (Vector3.Distance(transform.position, targetPoint) < checkDistance)
             {
-                FindNewTargetPoint(); // Смена цели
+                FindNewTargetPoint(); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             }
         }
     }
@@ -69,8 +71,8 @@ public class FlyTrash : Trash
         if (collision.gameObject.GetComponent<metla>())
         {
             rigidbody.gravityScale = 2;
-            movementSpeed = 0; // Останавливаем движение, но не удаляем физику
-            spriteRenderer.sprite = dead; // Используем spriteRenderer для изменения спрайта
+            movementSpeed = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            spriteRenderer.sprite = dead; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ spriteRenderer пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             moveRadius = 0f;
             rigidbody.mass = 0.5f;
         }
