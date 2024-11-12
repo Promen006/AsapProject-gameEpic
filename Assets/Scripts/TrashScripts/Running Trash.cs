@@ -57,10 +57,11 @@ public class BouncingObject : Trash
     {
         if (collision.gameObject.GetComponent<metla>())
         {
-            rigbody.gravityScale = 2;
+            isDead = true;
+            //rigbody.gravityScale = 2;
             speed = 0; // ������������� ��������, �� �� ������� ������
             spriteRenderer.sprite = dead; // ���������� spriteRenderer ��� ��������� �������
-            rigbody.mass = 0.5f;
+            //rigbody.mass = 0.5f;
         }
     }
 }
